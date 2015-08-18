@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <script src="sonar.js"></script>
+        <script>
+            var fingerprints = [
+                {
+                    'name': 'ASUS RT N66U Exploit',
+                    'fingerprints': ["/images/New_ui/asustitle.png", "/images/loading.gif", "/images/alertImg.png", "/images/New_ui/networkmap/line_one.png", "/images/New_ui/networkmap/lock.png", "/images/New_ui/networkmap/line_two.png", "/index_style.css", "/form_style.css", "/NM_style.css", "/other.css"],
+                    'callback': function( ip ) {
+                        // Insert exploit here
+                        alert( 'Found ASUS RT N66U at ' + ip );
+                    },
+                },
+            ];
+            sonar.load_fingerprints( fingerprints );
+            sonar.start();
+        </script>
+    </body>
+</html>
