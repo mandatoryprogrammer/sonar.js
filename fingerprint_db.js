@@ -9,4 +9,32 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "ASUS RT-AC66U",
+        'fingerprints': ["/images/New_ui/asustitle.png","/images/loading.gif","/images/alertImg.png","/images/white%20arrow.png","/images/New_ui/networkmap/line_one.png","/images/New_ui/networkmap/unlock.png","/images/New_ui/networkmap/line_two.png","/images/quotabar.gif","/index_style.css","/form_style.css","/NM_style.css","/other.css"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "ASUS RT-N16",
+        'fingerprints': ["/images/top-03.gif","/images/top.gif","/images/DrsurfImg.gif","/images/m-button-07end.gif","/images/quotabar.gif","/index_style.css","/form_style.css","/NM_style.css","/other.css"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "Linksys WRT54G",
+        'fingerprints': ["/UILinksys.gif","/UI_10.gif","/UI_07.gif","/UI_06.gif","/UI_03.gif","/UI_02.gif","/UI_Cisco.gif","/style.css"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "TPLINK Archer C7 AC1750",
+        'fingerprints': ["/dynaform/css_main.css", "/dynaform/css_help.css", "/images/top1_1.jpg", "/images/blue.jpg", "images/top_bg.jpg", "/images/top1_2.jpg"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
