@@ -40,3 +40,4 @@ function fingerprint() {
 
 var exploit_name = window.prompt( "Please enter the name of this device", "" );
 code = generate_function( exploit_name );
+console.log( code );
