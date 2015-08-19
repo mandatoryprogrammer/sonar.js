@@ -197,7 +197,7 @@ var sonar = {
     'check_resource_exists': function( resource, callback, ip ) {
         var full_source = 'http://' + ip + resource;
         var element_id = sonar.generate_random_id();
-        if( resource.endsWith( '.css' ) ) {
+        if( resource.toLowerCase().endsWith( '.css' ) ) {
             var resourceref = document.createElement( "link" );
             resourceref.setAttribute( "id", element_id );
             resourceref.setAttribute( "type", "text/css" );
@@ -208,7 +208,7 @@ var sonar = {
                 sonar.internal_host_manager( ip, resource );
             }, false );
             document.getElementsByTagName("head")[0].appendChild( resourceref );
-        } else if ( resource.endsWith( '.png' ) || resource.endsWith( '.gif') || resource.endsWith( '.jpg' ) || resource.endsWith( '.tiff' ) ) {
+        } else if ( resource.toLowerCase().endsWith( '.png' ) || resource.endsWith( '.gif') || resource.endsWith( '.jpg' ) || resource.endsWith( '.tiff' ) ) {
             var resourceref = document.createElement( "img" );
             resourceref.setAttribute( "id", element_id );
             resourceref.setAttribute( "src", full_source );
@@ -217,7 +217,7 @@ var sonar = {
                 sonar.internal_host_manager( ip, resource );
             }, false );
             document.getElementsByTagName("head")[0].appendChild( resourceref );
-        } else if ( resource.endsWith( '.js' ) ) {
+        } else if ( resource.toLowerCase().endsWith( '.js' ) ) {
             var resourceref = document.createElement( "script" );
             resourceref.setAttribute( "id", "testresource" );
             resourceref.setAttribute( "src", full_source );
