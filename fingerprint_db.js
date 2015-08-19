@@ -32,7 +32,14 @@ var fingerprints = [
     },
     {
         'name': "TPLINK Archer C7 AC1750",
-        'fingerprints': ["/dynaform/css_main.css", "/dynaform/css_help.css", "/images/top1_1.jpg", "/images/blue.jpg", "images/top_bg.jpg", "/images/top1_2.jpg"],
+        'fingerprints': ["/dynaform/css_main.css", "/dynaform/css_help.css", "/images/top1_1.jpg", "/images/blue.jpg", "/images/top_bg.jpg", "/images/top1_2.jpg"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "Epson WF-3520 Printer",
+        'fingerprints': ["/PRESENTATION/IMAGE/EPSONLOGO.PNG","/PRESENTATION/IMAGE/SEPARATOR.PNG","/PRESENTATION/IMAGE/EC_ILL.PNG","/PRESENTATION/IMAGE/GCP_ILL.PNG","/PRESENTATION/IMAGE/C_B_ILL.PNG","/PRESENTATION/IMAGE/B_C_ILL.PNG","/PRESENTATION/IMAGE/AIRP_ILL.PNG","/PRESENTATION/IMAGE/PRTINFO_ILL.PNG","/PRESENTATION/IMAGE/EC_BTN.PNG","/PRESENTATION/IMAGE/GCP_BTN.PNG","/PRESENTATION/IMAGE/C_B_BTN.PNG","/PRESENTATION/IMAGE/B_C_BTN.PNG","/PRESENTATION/IMAGE/AIRP_BTN.PNG","/PRESENTATION/IMAGE/PRTINFO_BTN.PNG"],
         'callback': function( ip ) {
             // Insert exploit here
         },
