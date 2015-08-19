@@ -7,7 +7,7 @@ Upon loading the sonar payload in a modern web browser the following will happen
 * If a live host is found, sonar begins to attempt to fingerprint the host by linking to it via ```<img src="x">``` and ```<link rel="stylesheet" type="text/css" href="x">``` and hooking the ```onload``` event. If the expected resources load successfully it will trigger the pre-set JavaScript callback to start the user-supplied exploit.
 * If the user changes networks, sonar starts the process all over again on the newly joined network.
 
-## Fingerprints?
+## Fingerprints
 sonar works off of a database of fingerprints. A fingerprint is simply a list of known resources on a device that can be linked to and detected via ```onload```. Examples of this include images, CSS stylesheets, and even external JavaScript.
 
 An example fingerprint database can be seen below:
