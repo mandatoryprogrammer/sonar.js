@@ -1,11 +1,16 @@
 var sonar = {
+    'debug': false,
     'fingerprints': [],
     'internal_hosts': {},
 
     /*
      * Start the exploit
      */
-    'start': function() {
+    'start': function(debug) {
+        if( debug !== undefined ) {
+          sonar.debug = true;
+        }
+
         if( sonar.fingerprints.length == 0 ) {
             return false;
         }
@@ -59,6 +64,9 @@ var sonar = {
 
                     if ( fingerprint.called.indexOf( index ) == -1 ) {
                         fingerprint.called.push( index );
+                        if( sonar.debug ) {
+                          alert( 'Found "' + fingerprint.name + '" at ' + index );
+                        }
                         fingerprint.callback( index );
                     }
                 }
