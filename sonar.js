@@ -212,7 +212,12 @@ var sonar = {
             resourceref.setAttribute( "rel", "stylesheet" );
             resourceref.setAttribute( "href", full_source );
 
+            resourceref.addEventListener( "error", function( event ) {
+                document.getElementById( element_id ).remove();
+            }, false );
+
             resourceref.addEventListener( "load", function( event ) {
+                document.getElementById( element_id ).remove();
                 sonar.internal_host_manager( ip, resource );
             }, false );
             document.getElementsByTagName("head")[0].appendChild( resourceref );
@@ -221,7 +226,12 @@ var sonar = {
             resourceref.setAttribute( "id", element_id );
             resourceref.setAttribute( "src", full_source );
 
+            resourceref.addEventListener( "error", function( event ) {
+                document.getElementById( element_id ).remove();
+            }, false );
+
             resourceref.addEventListener( "load", function( event ) {
+                document.getElementById( element_id ).remove();
                 sonar.internal_host_manager( ip, resource );
             }, false );
             document.getElementsByTagName("head")[0].appendChild( resourceref );
@@ -230,18 +240,18 @@ var sonar = {
             resourceref.setAttribute( "id", "testresource" );
             resourceref.setAttribute( "src", full_source );
 
+            resourceref.addEventListener( "error", function( event ) {
+                document.getElementById( element_id ).remove();
+            }, false );
+
             resourceref.addEventListener( "load", function( event ) {
+                document.getElementById( element_id ).remove();
                 sonar.internal_host_manager( ip, resource );
             }, false );
             document.getElementsByTagName("head")[0].appendChild( resourceref );
         } else {
             // Not a detectable resource
         }
-
-        // Remove the element after a set amount of time to ensure they're killed
-        setTimeout( function() {
-            document.getElementById( element_id ).remove();
-        }, 5000 );
     },
 }
 
