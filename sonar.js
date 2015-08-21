@@ -24,9 +24,13 @@ var sonar = {
      * Take enumerated IP addresses and run through the fingerprints to identify the devices.
      */
     'identify_device': function( ip ) {
+        var resource_list = [];
         sonar.fingerprints.forEach( function( fingerprint, index, all ) {
             for( i = 0; i < fingerprint.fingerprints.length; i++ ) {
-                sonar.check_resource_exists( fingerprint.fingerprints[i], sonar.internal_host_manager, ip );
+                if( !resource_list.contains( fingerprint.fingerprints[i] ) ) {
+                  sonar.check_resource_exists( fingerprint.fingerprints[i], sonar.internal_host_manager, ip );
+                  resource_list.push( fingerprint.fingerprints[i] );
+                }
             }
         });
     },
