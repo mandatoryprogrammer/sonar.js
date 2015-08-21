@@ -1,0 +1,16 @@
+.sonarbooktemplate {
+  width: 500px;
+  margin: 5px;
+}
+
+.code-output {
+  height: 200px;
+}
+
+.code-well {
+  height: 100%;
+}
+
+#copy2clipboardbutton {
+  margin: 5px;
+}
