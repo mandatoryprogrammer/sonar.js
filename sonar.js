@@ -141,7 +141,7 @@ var sonar = {
         var timeout = 5000;
         var done = false;
         var found = [];
-        var q = new TaskController(5, onDone);
+        var q = new TaskController(10, onDone);
         for (var i = 1; i < 256; ++i) {
             q.queue((function(i, cb) {
                 sonar.probe_ip(net + i, timeout, function(ip, success) {
