@@ -41,7 +41,7 @@ By creating your own fingerprints you can build custom exploits that will be lau
 
 For an easier way to create fingerprints, see the following Chrome extension which generates fingerprint template code automatically for the page you're on:
 
-[Click Here to Install Chrome Extension](https://chrome.google.com/webstore/detail/sonar-fingerprint-generat/pmijnndljolchjlfcncaeoejfpgef){:target="_blank"}
+<a href="https://chrome.google.com/webstore/detail/sonar-fingerprint-generat/pmijnndljolchjlfcncaeoejfpgef" target="_blank">Click Here to Install Chrome Extension</a>
 
 ![sonar fingerprint generator](https://i.imgur.com/LR1X4Py.png)
 
