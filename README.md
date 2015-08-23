@@ -40,6 +40,7 @@ Each database entry has the following:
 By creating your own fingerprints you can build custom exploits that will be launched against internal devices once they are detected by sonar. Common exploits include things such as Cross-site Request Forgery (CSRF), Cross-site Scripting (XSS), etc. The idea being that you can use these vulnerabilities to do things such as modifying router DNS configurations, dumping files from an internal fileserver, and more.
 
 For an easier way to create fingerprints, see the following Chrome extension which generates fingerprint template code automatically for the page you're on:
+
 [Click Here to Install Chrome Extension](https://chrome.google.com/webstore/detail/sonar-fingerprint-generat/pmijnndljolchjlfcncaeoejfpgef)
 
 ![sonar fingerprint generator](https://i.imgur.com/LR1X4Py.png)
