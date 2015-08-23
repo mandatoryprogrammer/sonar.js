@@ -1,7 +1,6 @@
 var sonar = {
     'debug': false,
     'fingerprints': [],
-    'internal_hosts': {},
     'scans': {},
 
     /*
