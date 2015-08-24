@@ -33,6 +33,7 @@ function recursive_element_collect( window_ref ) {
         }
         resource_array = resource_array.concat( get_resource_array( window_ref.frames[i].document ) );
     }
+    resource_array = resource_array.concat( get_resource_array( window_ref.document ) );
     return resource_array;
 }
 resource_array = recursive_element_collect( window );
