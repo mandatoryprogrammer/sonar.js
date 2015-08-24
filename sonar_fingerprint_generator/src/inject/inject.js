@@ -10,12 +10,12 @@ function get_relative_path( url ) {
 function get_resource_array( document_ref ) {
   var prints = [];
   for( var i = 0; i < document_ref.images.length; i++ ){
-    if( document_ref.images[i].src !== undefined ) {
+    if( document_ref.images[i].src !== undefined && document_ref.images[i].src !== null ) {
       prints.push( document_ref.images[i].src );
     }
   }
   for( var i = 0; i < document_ref.styleSheets.length; i++ ){
-    if( document_ref.styleSheets[i].href !== undefined ) {
+    if( document_ref.styleSheets[i].href !== undefined && document_ref.styleSheets[i].href !== null ) {
       prints.push( document_ref.styleSheets[i].href );
     }
   }
