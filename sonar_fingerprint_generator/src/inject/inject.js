@@ -24,8 +24,16 @@ function get_resource_array( document_ref ) {
   }
   return prints;
 }
-var resource_array = get_resource_array( window.document );
-for( i = 0; i < window.frames.length; i++ ) {
-    resource_array = resource_array.concat( get_resource_array( window.frames[i].document ) );
+
+function recursive_element_collect( window_ref ) {
+    var resource_array = [];
+    for( i = 0; i < window.frames.length; i++ ) {
+        if( window.frames[i].frames.length > 0 ) {
+            resource_array = resource_array.concat( recursive_element_collect( window.frames[i] ) );
+        }
+        resource_array = resource_array.concat( get_resource_array( window.frames[i].document ) );
+    }
+    return resource_array;
 }
+resource_array = recursive_element_collect( window );
 resource_array
