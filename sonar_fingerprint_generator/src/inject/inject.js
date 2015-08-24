@@ -35,5 +35,6 @@ function recursive_element_collect( window_ref ) {
     }
     return resource_array;
 }
-resource_array = recursive_element_collect( window );
+resource_array = get_resource_array( window.document );
+resource_array = resource_array.concat( recursive_element_collect( window ) );
 resource_array
