@@ -27,14 +27,13 @@ function get_resource_array( document_ref ) {
 
 function recursive_element_collect( window_ref ) {
     var resource_array = [];
-    for( i = 0; i < window.frames.length; i++ ) {
-        if( window.frames[i].frames.length > 0 ) {
-            resource_array = resource_array.concat( recursive_element_collect( window.frames[i] ) );
+    for( i = 0; i < window_ref.frames.length; i++ ) {
+        if( window_ref.frames[i].frames.length > 0 ) {
+            resource_array = resource_array.concat( recursive_element_collect( window_ref.frames[i] ) );
         }
-        resource_array = resource_array.concat( get_resource_array( window.frames[i].document ) );
+        resource_array = resource_array.concat( get_resource_array( window_ref.frames[i].document ) );
     }
     return resource_array;
 }
-resource_array = get_resource_array( window.document );
-resource_array = resource_array.concat( recursive_element_collect( window ) );
+resource_array = recursive_element_collect( window );
 resource_array
