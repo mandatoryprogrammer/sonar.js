@@ -2,7 +2,7 @@ var sonar = {
     'debug': false,
     'fingerprints': [],
     'scans': {},
-    'websocket_timeout': 3000,
+    'websocket_timeout': 5000,
     'ip_queue': [], // Queue of IPs to scan
 
     /*
