@@ -1,5 +1,5 @@
 # sonar
-A framework for identifying and launching exploits against internal network hosts. Works via WebRTC IP scanning combined with external resource fingerprinting.
+A framework for identifying and launching exploits against internal network hosts. Works via WebRTC IP enumeration, WebSocket host scanning, and external resource fingerprinting.
 
 ## How does it work?
 Upon loading the sonar payload in a modern web browser the following will happen:
