@@ -11,7 +11,7 @@ function get_resource_array( document_ref ) {
   var prints = [];
   for( var i = 0; i < document_ref.images.length; i++ ){
     if( document_ref.images[i].src !== undefined && document_ref.images[i].src !== null ) {
-      prints.push( document_ref.images[i].src );
+      prints.push( [ document_ref.images[i].src, document_ref.images[i].naturalWidth, document_ref.images[i].naturalHeight ] );
     }
   }
   for( var i = 0; i < document_ref.styleSheets.length; i++ ){
@@ -20,7 +20,11 @@ function get_resource_array( document_ref ) {
     }
   }
   for( var i = 0; i < prints.length; i++ ){
-    prints[i] = get_relative_path( prints[i] );
+    if (prints[i] instanceof Array) {
+      prints[i][0] = get_relative_path( prints[i][0] );
+    } else {
+      prints[i] = get_relative_path( prints[i] );  
+    }
   }
   return prints;
 }

@@ -63,10 +63,18 @@ var sonar = {
     /*
      * This function keeps the records for what resources have been mapped to which hosts.
      */
-    'internal_host_manager': function( ip, resource, id, error ) {
+    'internal_host_manager': function( ip, resource, id, otherProps, error ) {
         if( error ) {
             delete sonar.scans[ id ];
             return;
+        }
+
+        // If it's an image, check the dimensions
+        if ( resource instanceof Array && otherProps.hasOwnProperty('width') ) {
+            if (resource[1] != otherProps.width || resource[2] != otherProps.height) {
+                delete sonar.scans[ id ];
+                return;
+            }
         }
 
         // If it's the last element then call it's callback.
@@ -218,19 +226,19 @@ var sonar = {
      * Internal host fingerprinting via SOP hacks
      */
     'check_resource_exists': function( resource, ip, id ) {
-        var full_source = 'http://' + ip + resource;
+        var full_source = 'http://' + ip + ( resource instanceof Array ? resource[0] : resource );
         var element_id = sonar.generate_random_id();
-        if( resource.toLowerCase().endsWith( '.css' ) ) {
+        if( full_source.toLowerCase().endsWith( '.css' ) ) {
             var resourceref = document.createElement( "link" );
             resourceref.setAttribute( "id", element_id );
             resourceref.setAttribute( "type", "text/css" );
             resourceref.setAttribute( "rel", "stylesheet" );
             resourceref.setAttribute( "href", full_source );
-        } else if ( resource.toLowerCase().endsWith( '.png' ) || resource.toLowerCase().endsWith( '.gif') || resource.toLowerCase().endsWith( '.jpg' ) || resource.toLowerCase().endsWith( '.tiff' ) ) {
+        } else if ( full_source.toLowerCase().endsWith( '.png' ) || full_source.toLowerCase().endsWith( '.gif') || full_source.toLowerCase().endsWith( '.jpg' ) || full_source.toLowerCase().endsWith( '.tiff' ) ) {
             var resourceref = document.createElement( "img" );
             resourceref.setAttribute( "id", element_id );
             resourceref.setAttribute( "src", full_source );
-        } else if ( resource.toLowerCase().endsWith( '.js' ) ) {
+        } else if ( full_source.toLowerCase().endsWith( '.js' ) ) {
             var resourceref = document.createElement( "script" );
             resourceref.setAttribute( "id", "testresource" );
             resourceref.setAttribute( "src", full_source );
@@ -239,12 +247,17 @@ var sonar = {
         }
         resourceref.addEventListener( "error", function( event ) {
             document.getElementById( element_id ).remove();
-            sonar.internal_host_manager( ip, resource, id, true );
+            sonar.internal_host_manager( ip, resource, id, null, true );
         }, false );
 
         resourceref.addEventListener( "load", function( event ) {
+            var otherProps = {};
+            if (resourceref.nodeName.toLowerCase() == 'img') {
+                otherProps.width = resourceref.naturalWidth;
+                otherProps.height = resourceref.naturalHeight;
+            }
             document.getElementById( element_id ).remove();
-            sonar.internal_host_manager( ip, resource, id, false );
+            sonar.internal_host_manager( ip, resource, id, otherProps, false );
         }, false );
         document.getElementsByTagName("head")[0].appendChild( resourceref );
     },
