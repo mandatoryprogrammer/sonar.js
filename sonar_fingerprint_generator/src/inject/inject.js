@@ -23,7 +23,7 @@ function get_resource_array( document_ref ) {
     }
   }
   for( var i = 0; i < document_ref.scripts.length; i++ ){
-    if( document_ref.scripts[i].src !== undefined && document_ref.scripts[i].src !== null ) {
+    if( document_ref.scripts[i].src !== undefined && document_ref.scripts[i].src !== null && document_ref.scripts[i].src.length > 0 ) {
       prints.push( document_ref.scripts[i].src );
     }
   }
