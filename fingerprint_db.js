@@ -51,4 +51,11 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "Cisco Xfinity XB3 Modem",
+        'fingerprints': [["/cmn/img/logo_title.png",92,30],["/cmn/img/icn_battery.png",9,114],["/cmn/img/icn_on_off.png",15,66],"/cmn/css/common-min.css","/cmn/css/print.css","/cmn/css/lib/jquery.radioswitch.css","/cmn/js/lang_en.js","/cmn/js/lib/jquery-1.9.1.js","/cmn/js/lib/jquery-migrate-1.2.1.js","/cmn/js/lib/jquery.validate.js","/cmn/js/lib/jquery.alerts.js","/cmn/js/lib/jquery.alerts.progress.js","/cmn/js/lib/jquery.ciscoExt.js","/cmn/js/lib/jquery.highContrastDetect.js","/cmn/js/lib/jquery.radioswitch.js","/cmn/js/lib/jquery.virtualDialog.js","/cmn/js/utilityFunctions.js","/cmn/js/comcast.js"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
