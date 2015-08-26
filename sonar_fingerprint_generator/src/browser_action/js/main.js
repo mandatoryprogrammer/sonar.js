@@ -14,13 +14,13 @@ function copycode() {
 document.getElementById("copy2clipboardbutton").addEventListener("click", copycode);
 
 function remove_duplicates(arr) {
-    var obj = {};
-    for (var i = 0; i < arr.length; i++) {
-        obj[arr[i]] = true;
-    }
-    arr = [];
-    for (var key in obj) {
-        arr.push(key);
-    }
-    return arr;
+    var prims = {"boolean":{}, "number":{}, "string":{}}, objs = [];
+
+    return arr.filter(function(item) {
+        var type = typeof item;
+        if(type in prims)
+            return prims[type].hasOwnProperty(item) ? false : (prims[type][item] = true);
+        else
+            return objs.indexOf(item) >= 0 ? false : objs.push(item);
+    });
 }

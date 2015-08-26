@@ -14,7 +14,7 @@ function get_resource_array( document_ref ) {
   var prints = [];
   for( var i = 0; i < document_ref.images.length; i++ ){
     if( document_ref.images[i].src !== undefined && document_ref.images[i].src !== null ) {
-      prints.push( document_ref.images[i].src );
+      prints.push( [ document_ref.images[i].src, document_ref.images[i].naturalWidth, document_ref.images[i].naturalHeight ] );
     }
   }
   for( var i = 0; i < document_ref.styleSheets.length; i++ ){
@@ -23,15 +23,20 @@ function get_resource_array( document_ref ) {
     }
   }
   for( var i = 0; i < document_ref.scripts.length; i++ ){
-    if( document_ref.scripts[i].src !== undefined && document_ref.scripts[i].src !== null ) {
+    if( document_ref.scripts[i].src !== undefined && document_ref.scripts[i].src !== null && document_ref.scripts[i].src.length > 0 ) {
       prints.push( document_ref.scripts[i].src );
     }
   }
   var new_prints = [];
+  console.log(prints);
   for( var i = 0; i < prints.length; i++ ){
-    var tmp_print = get_relative_path( prints[i] );
+    var tmp_print = get_relative_path( prints[i] instanceof Array ? prints[i][0] : prints[i] );
     if( tmp_print != false ){
-      new_prints.push( tmp_print );
+      if (prints[i] instanceof Array) {
+        new_prints.push( [ tmp_print, prints[i][1], prints[i][2] ] );
+      } else {
+        new_prints.push( tmp_print );
+      }
     }
   }
   prints = new_prints;

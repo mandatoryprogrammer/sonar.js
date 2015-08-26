@@ -38,6 +38,13 @@ var fingerprints = [
         },
     },
     {
+        'name': "TPLINK Archer C7 AC1750 (Logged Out)",
+        'fingerprints': [["/login/top1_1.jpg",280,87],["/login/top2.jpg",770,3]],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
         'name': "Epson WF-3520 Printer",
         'fingerprints': ["/PRESENTATION/IMAGE/EPSONLOGO.PNG","/PRESENTATION/IMAGE/SEPARATOR.PNG","/PRESENTATION/IMAGE/EC_ILL.PNG","/PRESENTATION/IMAGE/GCP_ILL.PNG","/PRESENTATION/IMAGE/C_B_ILL.PNG","/PRESENTATION/IMAGE/B_C_ILL.PNG","/PRESENTATION/IMAGE/AIRP_ILL.PNG","/PRESENTATION/IMAGE/PRTINFO_ILL.PNG","/PRESENTATION/IMAGE/EC_BTN.PNG","/PRESENTATION/IMAGE/GCP_BTN.PNG","/PRESENTATION/IMAGE/C_B_BTN.PNG","/PRESENTATION/IMAGE/B_C_BTN.PNG","/PRESENTATION/IMAGE/AIRP_BTN.PNG","/PRESENTATION/IMAGE/PRTINFO_BTN.PNG"],
         'callback': function( ip ) {
