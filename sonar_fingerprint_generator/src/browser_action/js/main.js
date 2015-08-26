@@ -13,14 +13,17 @@ function copycode() {
 }
 document.getElementById("copy2clipboardbutton").addEventListener("click", copycode);
 
-function remove_duplicates(arr) {
-    var prims = {"boolean":{}, "number":{}, "string":{}}, objs = [];
-
-    return arr.filter(function(item) {
-        var type = typeof item;
-        if(type in prims)
-            return prims[type].hasOwnProperty(item) ? false : (prims[type][item] = true);
-        else
-            return objs.indexOf(item) >= 0 ? false : objs.push(item);
-    });
+function remove_duplicates(array){
+  if ($.isArray(array)){
+    var dupes = {}; var len, i;
+    for (i=0,len=array.length;i<len;i++){
+      var test = array[i].toString();
+      if (dupes[test]) { array.splice(i,1); len--; i--; } else { dupes[test] = true; }
+    }
+  } 
+  else {
+    if (window.console) console.log('Not passing an array to uniqueArray, returning whatever you sent it - not filtered!');
+      return(array);
+  }
+  return(array);
 }

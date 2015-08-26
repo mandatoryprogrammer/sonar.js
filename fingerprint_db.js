@@ -4,7 +4,7 @@
 var fingerprints = [
     {
         'name': "ASUS RT-N66U",
-        'fingerprints': ["/images/New_ui/asustitle.png","/images/loading.gif","/images/alertImg.png","/images/New_ui/networkmap/line_one.png","/images/New_ui/networkmap/lock.png","/images/New_ui/networkmap/line_two.png","/index_style.css","/form_style.css","/NM_style.css","/other.css"],
+        'fingerprints': [["/images/New_ui/networkmap/linetwo2.png",270,2],["/images/alertImg.png",92,92],["/switcherplugin/iphone_switch_container_off.png",75,32],"/NM_style.css","/form_style.css","/general.js","/device-map/formcontrol.js","/ajax.js","/state.js","/jquery.js","/switcherplugin/jquery.iphone-switch.js","/device-map/router.asp",["/images/New_ui/asustitle.png",218,54],["/images/loading.gif",66,66],["/images/New_ui/networkmap/line_one.png",7,22],["/images/New_ui/networkmap/lock.png",23,23],["/images/New_ui/networkmap/line_two.png",180,57],"/index_style.css","/other.css","/md5.js","/popup.js","/disk_functions.js","/client_function.js","/help.js","/detect.js"],
         'callback': function( ip ) {
             // Insert exploit here
         },
