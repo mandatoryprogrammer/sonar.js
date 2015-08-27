@@ -1,15 +1,15 @@
-# sonar
+# sonar.js
 A framework for identifying and launching exploits against internal network hosts. Works via WebRTC IP enumeration, WebSocket host scanning, and external resource fingerprinting.
 
 ## How does it work?
-Upon loading the sonar payload in a modern web browser the following will happen:
-* sonar will use WebRTC to enumerate what internal IPs the user loading the payload has.
-* sonar then attempts to find live hosts on the internal network via WebSockets.
-* If a live host is found, sonar begins to attempt to fingerprint the host by linking to it via ```<img src="x">``` and ```<link rel="stylesheet" type="text/css" href="x">``` and hooking the ```onload``` event. If the expected resources load successfully it will trigger the pre-set JavaScript callback to start the user-supplied exploit.
-* If the user changes networks, sonar starts the process all over again on the newly joined network.
+Upon loading the sonar.js payload in a modern web browser the following will happen:
+* sonar.js will use WebRTC to enumerate what internal IPs the user loading the payload has.
+* sonar.js then attempts to find live hosts on the internal network via WebSockets.
+* If a live host is found, sonar.js begins to attempt to fingerprint the host by linking to it via ```<img src="x">``` and ```<link rel="stylesheet" type="text/css" href="x">``` and hooking the ```onload``` event. If the expected resources load successfully it will trigger the pre-set JavaScript callback to start the user-supplied exploit.
+* If the user changes networks, sonar.js starts the process all over again on the newly joined network.
 
 ## Fingerprints
-sonar works off of a database of fingerprints. A fingerprint is simply a list of known resources on a device that can be linked to and detected via ```onload```. Examples of this include images, CSS stylesheets, and even external JavaScript.
+sonar.js works off of a database of fingerprints. A fingerprint is simply a list of known resources on a device that can be linked to and detected via ```onload```. Examples of this include images, CSS stylesheets, and even external JavaScript.
 
 An example fingerprint database can be seen below:
 ```
@@ -38,16 +38,16 @@ Each database entry has the following:
 * ```fingerprints```: This is an array of relative links to resources such as CSS stylesheets, images, or even JavaScript files. If you expect these resources to be on a non-standard port such as ``8080``, set the resource with the port included: ```:8080/unique.css```. Keep in mind using external resources with active content such as JavaScript is dangerous as it can interrupt the regular flow of execution.
 * ```callback```: If all of these resources are found to exist on the enumerated host then the ```callback``` function is called with a single argument of the device's IP address.
 
-By creating your own fingerprints you can build custom exploits that will be launched against internal devices once they are detected by sonar. Common exploits include things such as Cross-site Request Forgery (CSRF), Cross-site Scripting (XSS), etc. The idea being that you can use these vulnerabilities to do things such as modifying router DNS configurations, dumping files from an internal fileserver, and more.
+By creating your own fingerprints you can build custom exploits that will be launched against internal devices once they are detected by sonar.js. Common exploits include things such as Cross-site Request Forgery (CSRF), Cross-site Scripting (XSS), etc. The idea being that you can use these vulnerabilities to do things such as modifying router DNS configurations, dumping files from an internal fileserver, and more.
 
 For an easier way to create fingerprints, see the following Chrome extension which generates fingerprint template code automatically for the page you're on:
 
-<a href="https://chrome.google.com/webstore/detail/sonar-fingerprint-generat/pmijnndljolchjlfcncaeoejfpjjagef">Click Here to Install Chrome Extension</a>
+<a href="https://chrome.google.com/webstore/detail/sonar.js-fingerprint-generat/pmijnndljolchjlfcncaeoejfpjjagef">Click Here to Install Chrome Extension</a>
 
-![sonar fingerprint generator](https://i.imgur.com/LR1X4Py.png)
+![sonar.js fingerprint generator](https://i.imgur.com/LR1X4Py.png)
 
-## What can be done using sonar?
-By using sonar a pentesting team can build web exploits against things such as internal logging servers, routers, printers, VOIP phones, and more. Due to internal networks often being less guarded, attacks such as CSRF and XSS can be powerful to take over the configurations of devices on a hosts internal network. Did we mention this can all be done from an Internet webpage?
+## What can be done using sonar.js?
+By using sonar.js a pentesting team can build web exploits against things such as internal logging servers, routers, printers, VOIP phones, and more. Due to internal networks often being less guarded, attacks such as CSRF and XSS can be powerful to take over the configurations of devices on a hosts internal network. Did we mention this can all be done from an Internet webpage?
 
 ## Help us build our database!
 If you have a device such as a printer, router, or some other internal service please submit a fingerprint to us so we can add it to our master database. We will be adding more fingerprints for more devices overtime but we are limited to the devices that we have access to.
