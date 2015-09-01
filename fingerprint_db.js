@@ -93,4 +93,11 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "SIP-T41P IP Phone",
+        'fingerprints': [["/img/btn_bg_down.png",98,28],"/js/utility.js","/language/1.English.js"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
