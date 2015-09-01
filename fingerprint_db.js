@@ -79,4 +79,11 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "GE Security 1809 Universal Interface",
+        'fingerprints': [["/images/gelogo.jpg",251,59],"/links.html",["/images/1809.jpg",560,349],"/home.html"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
