@@ -58,11 +58,4 @@ var fingerprints = [
             // Insert exploit here
         },
     },
-    {
-        'name': "Remote Messages App for iOS http://www.remotemessages.com/",
-        'fingerprints': ["333:/css/reset.css","333:/js/select2/select2.css","333:/css/fancybox.css","333:/css/main.css","333:/themes/Seven/custom.css","333:/js/jquery.js","333:/js/plugins.js","333:/js/functions.js","333:/js/sources.js","333:/js/socket.js","333:/js/fancybox.js","333:/js/jquery.form.js","333:/js/parseMessage.js","333:/js/jquery.filestyle.js","333:/js/select2/select2.min.js","333:/js/main.js"],
-        'callback': function( ip ) {
-            // Insert exploit here
-        },
-    },
 ]
