@@ -72,4 +72,11 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "Cisco SPA504G IP Phone",
+        'fingerprints': [["/pageBackground.jpg",1260,1024],["/cisco_logo_header.png",62,33]],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
