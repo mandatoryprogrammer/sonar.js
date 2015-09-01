@@ -86,4 +86,11 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "Denon CEOL Piccolo DRA-N5 Network Audio Player",
+        'fingerprints': ["/SETUP/formCssDefault.css","/SETUP/d_left_setup.asp","/goform/formCssDefault.css","/SETUP/d_right_setup.asp","/dummy.asp","/css/mainMenu.css"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
