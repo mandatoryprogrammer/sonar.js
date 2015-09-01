@@ -58,4 +58,18 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "Brother HL-2150N series Printer",
+        'fingerprints': [["/pbio/brother.gif",144,52],["/printer/hl2150n.gif",144,16],["/printer/ball.gif",15,11],["/pbio/key_user.gif",24,11],["/pbio/bar_v.gif",24,1],["/pbio/bar_h.gif",24,1],["/pbio/key_admin.gif",24,11],["/printer/key_help.gif",36,39],["/printer/spacer.gif",1,1],["/pbio/model_s.gif",144,45],["/printer/dispLCD.gif",20,15],["/printer/noneLCD.gif",20,15],["/pbio/AutoRfOff.gif",80,50],["/printer/cot.gif",39,35],["/printer/loc.gif",39,35],"/printer/printer.css"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "Brother HL-2250DN series Printer",
+        'fingerprints': [["/pbio/brother.gif",144,52],["/printer/hl2250dn.gif",144,16],["/printer/ball.gif",15,11],["/pbio/key_user.gif",24,11],["/pbio/bar_v.gif",24,1],["/pbio/bar_h.gif",24,1],["/pbio/key_admin.gif",24,11],["/printer/key_help.gif",36,39],["/printer/spacer.gif",1,1],["/pbio/model_s.gif",144,45],["/printer/noneLCD.gif",20,15],["/pbio/AutoRfOff.gif",80,50],["/printer/cot.gif",39,35],["/printer/loc.gif",39,35],"/printer/printer.css"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
