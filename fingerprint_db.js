@@ -58,4 +58,46 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "Brother HL-2150N series Printer",
+        'fingerprints': [["/pbio/brother.gif",144,52],["/printer/hl2150n.gif",144,16],["/printer/ball.gif",15,11],["/pbio/key_user.gif",24,11],["/pbio/bar_v.gif",24,1],["/pbio/bar_h.gif",24,1],["/pbio/key_admin.gif",24,11],["/printer/key_help.gif",36,39],["/printer/spacer.gif",1,1],["/pbio/model_s.gif",144,45],["/printer/dispLCD.gif",20,15],["/printer/noneLCD.gif",20,15],["/pbio/AutoRfOff.gif",80,50],["/printer/cot.gif",39,35],["/printer/loc.gif",39,35],"/printer/printer.css"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "Brother HL-2250DN series Printer",
+        'fingerprints': [["/pbio/brother.gif",144,52],["/printer/hl2250dn.gif",144,16],["/printer/ball.gif",15,11],["/pbio/key_user.gif",24,11],["/pbio/bar_v.gif",24,1],["/pbio/bar_h.gif",24,1],["/pbio/key_admin.gif",24,11],["/printer/key_help.gif",36,39],["/printer/spacer.gif",1,1],["/pbio/model_s.gif",144,45],["/printer/noneLCD.gif",20,15],["/pbio/AutoRfOff.gif",80,50],["/printer/cot.gif",39,35],["/printer/loc.gif",39,35],"/printer/printer.css"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "Cisco SPA504G IP Phone",
+        'fingerprints': [["/pageBackground.jpg",1260,1024],["/cisco_logo_header.png",62,33]],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "GE Security 1809 Universal Interface",
+        'fingerprints': [["/images/gelogo.jpg",251,59],"/links.html",["/images/1809.jpg",560,349],"/home.html"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "Denon CEOL Piccolo DRA-N5 Network Audio Player",
+        'fingerprints': ["/SETUP/formCssDefault.css","/SETUP/d_left_setup.asp","/goform/formCssDefault.css","/SETUP/d_right_setup.asp","/dummy.asp","/css/mainMenu.css"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "SIP-T41P IP Phone",
+        'fingerprints': [["/img/btn_bg_down.png",98,28],"/js/utility.js","/language/1.English.js"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
