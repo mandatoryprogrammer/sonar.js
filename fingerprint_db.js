@@ -107,4 +107,11 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "Cisco Small Business Switch",
+        'fingerprints': [["/images/cisco_pageBackground.jpg",1260,1024],["/images/cisco_logo_header.png",62,33],["/images/ContextMessageArrow_DownT.gif",16,16],["/images/login_progress.gif",16,16],["/images/normalHoverButton.gif",180,49],["/images/pressedButton.png",180,49],["/images/button_hover.png",1,22],["/images/button_pressed.png",1,22],["/images/cisco_button_hover-60.gif",60,24],["/images/cisco_button_normal-60.gif",60,24],["/images/cisco_button_pressed-60.gif",60,24],"/scripts/jquery.js","/scripts/jquery.cookie.js"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
