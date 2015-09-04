@@ -7,7 +7,7 @@ function get_relative_path( url ) {
   if( el.port == "" ) {
     return el.pathname;
   } else {
-    return el.port + ':' + el.pathname;
+    return ':' + el.port + el.pathname;
   }
 }
 function get_resource_array( document_ref ) {
