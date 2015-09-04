@@ -100,4 +100,11 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "OpenWrt",
+        'fingerprints': ["/luci-static/bootstrap/cascade.css","/luci-static/bootstrap/mobile.css","/luci-static/resources/xhr.js",["/luci-static/resources/cbi/apply.gif",16,16],["/luci-static/resources/cbi/reset.gif",16,16]],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
