@@ -114,4 +114,11 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "Thomson TG789vn Router",
+        'fingerprints': [["/images/home.gif",50,50],["/images/stxx__xl.gif",50,50],["/images/bbc__xl.gif",50,50],["/images/tbox__xl.gif",50,50],["/images/hnw___xl.gif",50,50],["/images/help.gif",50,50],["/images/spacer.gif",1,1],["/images/bull__md.gif",40,20],["/images/bbc_grxl.gif",50,50],["/images/iwla__la.gif",40,40],["/images/ieth__la.gif",40,40],["/images/ipho__la.gif",40,40],["/images/banner_back.gif",1,69],["/images/banner_left.gif",605,69],["/images/banner_right.gif",139,69],["/images/gradient.gif",1,38],"/styles.css","/util.js","/b_menu.js"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
