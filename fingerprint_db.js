@@ -100,4 +100,25 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "OpenWrt",
+        'fingerprints': ["/luci-static/bootstrap/cascade.css","/luci-static/bootstrap/mobile.css","/luci-static/resources/xhr.js",["/luci-static/resources/cbi/apply.gif",16,16],["/luci-static/resources/cbi/reset.gif",16,16]],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "Cisco Small Business Switch",
+        'fingerprints': [["/images/cisco_pageBackground.jpg",1260,1024],["/images/cisco_logo_header.png",62,33],["/images/ContextMessageArrow_DownT.gif",16,16],["/images/login_progress.gif",16,16],["/images/normalHoverButton.gif",180,49],["/images/pressedButton.png",180,49],["/images/button_hover.png",1,22],["/images/button_pressed.png",1,22],["/images/cisco_button_hover-60.gif",60,24],["/images/cisco_button_normal-60.gif",60,24],["/images/cisco_button_pressed-60.gif",60,24],"/scripts/jquery.js","/scripts/jquery.cookie.js"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
+    {
+        'name': "Thomson TG789vn Router",
+        'fingerprints': [["/images/home.gif",50,50],["/images/stxx__xl.gif",50,50],["/images/bbc__xl.gif",50,50],["/images/tbox__xl.gif",50,50],["/images/hnw___xl.gif",50,50],["/images/help.gif",50,50],["/images/spacer.gif",1,1],["/images/bull__md.gif",40,20],["/images/bbc_grxl.gif",50,50],["/images/iwla__la.gif",40,40],["/images/ieth__la.gif",40,40],["/images/ipho__la.gif",40,40],["/images/banner_back.gif",1,69],["/images/banner_left.gif",605,69],["/images/banner_right.gif",139,69],["/images/gradient.gif",1,38],"/styles.css","/util.js","/b_menu.js"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 ]
