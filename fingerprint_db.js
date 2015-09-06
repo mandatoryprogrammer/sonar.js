@@ -122,7 +122,7 @@ var fingerprints = [
         },
     },
     {
-        'name': "HUAWEI Home Gateway",
+        'name': "Huawei Home Gateway",
         'fingerprints': ["/html/main/refresh.asp",["/images/logo.gif",55,54],["/images/language.gif",42,38],["/images/helpmain.gif",45,44],["/images/logout.gif",45,44],"/css/stylemain.css","/js/util.js","/js/tabinfo.js","/lang/logo.res","/html/main/logo.html",["/images/info.gif",46,44],["/images/basic.gif",46,44],["/images/advance.gif",46,44],["/images/maintain.gif",46,44],"/lang/device.res","/js/menutree.js","/js/adminmenu.js","/js/usermenu.js","/html/main/menu.asp","/html/main/tab.asp","/css/contentstyle.css","/html/status/deviceinfo.asp","/lang/footer.res","/html/main/footer.html",["/images/logoback.gif",2,68],["/images/leftblock.gif",18,68],["/images/midblock.gif",2,68],["/images/firstmenu.gif",2,45],["/images/rightblock.gif",19,68],["/images/tabbar.gif",2,4],["/images/clicktableft.gif",11,25],["/images/clicktabmid.gif",2,25],["/images/clicktabright.gif",11,25],["/images/loginleft.gif",7,197],["/images/loginmid.gif",2,197],["/images/loginright.gif",7,197],["/images/helpinit.gif",2,19],],
         'callback': function( ip ) {
             // Insert exploit here
