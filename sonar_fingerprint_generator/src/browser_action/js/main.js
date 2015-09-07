@@ -1,8 +1,9 @@
 chrome.tabs.getSelected( null, function( tab ) {
   chrome.tabs.executeScript( tab.id, { file: "/src/inject/inject.js" }, function( return_data ) {
-    var code = "var fingerprints = [\r\n    {\r\n        \'name\': [FINGERPRINT_NAME_REPLACE_ME],\r\n        \'fingerprints\': [FINGERPRINT_REPLACE_ME],\r\n        \'callback\': function( ip ) {\r\n            \/\/ Insert exploit here\r\n        },\r\n    },\r\n]";
+    var code = "\t{\r\n        \'name\': [FINGERPRINT_NAME_REPLACE_ME],\r\n        \'created\': [FINGERPRINT_DATE_REPLACE_ME],\r\n        \'resources\': [FINGERPRINT_REPLACE_ME],\r\n        \'callback\': function( ip ) {\r\n            \/\/ Insert exploit here\r\n        },\r\n    }";
     code = code.replace( '[FINGERPRINT_NAME_REPLACE_ME]', JSON.stringify( 'Example' ) );
     code = code.replace( '[FINGERPRINT_REPLACE_ME]', JSON.stringify( remove_duplicates( return_data[0] ) ) );
+    code = code.replace( '[FINGERPRINT_DATE_REPLACE_ME]', JSON.stringify( new Date().toGMTString() ) );
     document.getElementById( 'codeoutput' ).value = code;
   });
 });

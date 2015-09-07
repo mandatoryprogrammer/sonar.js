@@ -47,15 +47,15 @@ var sonar = {
     'identify_device': function( ip ) {
         var resource_list = [];
         sonar.fingerprints.forEach( function( fingerprint, index, all ) {
-            if( fingerprint.fingerprints.length > 0 ) {
+            if( fingerprint.resources.length > 0 ) {
                 var random_id = sonar.generate_random_id();
                 sonar.scans[ random_id ] = {
                     'offset': 0,
                     'name': fingerprint.name,
-                    'fingerprints': fingerprint.fingerprints,
+                    'resources': fingerprint.resources,
                     'callback': fingerprint.callback,
                 };
-                sonar.check_resource_exists( sonar.scans[ random_id ].fingerprints[0], ip, random_id );
+                sonar.check_resource_exists( sonar.scans[ random_id ].resources[0], ip, random_id );
             }
         });
     },
@@ -78,7 +78,7 @@ var sonar = {
         }
 
         // If it's the last element then call it's callback.
-        if( sonar.scans[ id ].fingerprints[ sonar.scans[ id ].fingerprints.length - 1 ] == resource ) {
+        if( sonar.scans[ id ].resources[ sonar.scans[ id ].resources.length - 1 ] == resource ) {
             if( sonar.debug ) {
                 alert( '[DEBUG][' + id + '] Found "' + sonar.scans[ id ].name + '" at ' + ip );
             }
@@ -87,7 +87,7 @@ var sonar = {
             return;
         } else {
             sonar.scans[ id ].offset++;
-            sonar.check_resource_exists( sonar.scans[ id ].fingerprints[ sonar.scans[ id ].offset ], ip, id );
+            sonar.check_resource_exists( sonar.scans[ id ].resources[ sonar.scans[ id ].offset ], ip, id );
         }
     },
 
@@ -101,7 +101,7 @@ var sonar = {
      * var fingerprints = [
      *  {
      *      'name': 'ASUS RT N66U Exploit',
-     *      'fingerprints': [ '/other.css' ],
+     *      'resources': [ '/other.css' ],
      *      'callback': function( ip ),
      *  }
      * ]

@@ -1,6 +1,6 @@
 {
   "name": "sonar.js - Fingerprint Generator",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "manifest_version": 2,
   "description": "Fingerprint generator for the sonar.js project",
   "homepage_url": "https://github.com/mandatoryprogrammer/sonar.js",

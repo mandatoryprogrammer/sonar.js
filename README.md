@@ -15,14 +15,14 @@ An example fingerprint database can be seen below:
 var fingerprints = [
     {
         'name': "ASUS RT-N66U",
-        'fingerprints': ["/images/New_ui/asustitle.png","/images/loading.gif","/images/alertImg.png","/images/New_ui/networkmap/line_one.png","/images/New_ui/networkmap/lock.png","/images/New_ui/networkmap/line_two.png","/index_style.css","/form_style.css","/NM_style.css","/other.css"],
+        'resources': ["/images/New_ui/asustitle.png","/images/loading.gif","/images/alertImg.png","/images/New_ui/networkmap/line_one.png","/images/New_ui/networkmap/lock.png","/images/New_ui/networkmap/line_two.png","/index_style.css","/form_style.css","/NM_style.css","/other.css"],
         'callback': function( ip ) {
             // Insert exploit here
         },
     },
     {
         'name': "Linksys WRT54G",
-        'fingerprints': ["/UILinksys.gif","/UI_10.gif","/UI_07.gif","/UI_06.gif","/UI_03.gif","/UI_02.gif","/UI_Cisco.gif","/style.css"],
+        'resources': ["/UILinksys.gif","/UI_10.gif","/UI_07.gif","/UI_06.gif","/UI_03.gif","/UI_02.gif","/UI_Cisco.gif","/style.css"],
         'callback': function( ip ) {
             // Insert exploit here
         },
@@ -34,7 +34,7 @@ The above database contains fingerprints for two devices, the *ASUS RT-N66U* WiF
 
 Each database entry has the following:
 * ``name``: A  field to identify what device the fingerprint is for. This could be something like *HP Officejet 4500 printer* or *Linksys WRT54G Router*.
-* ```fingerprints```: This is an array of relative links to resources such as CSS stylesheets, images, or even JavaScript files. If you expect these resources to be on a non-standard port such as ``8080``, set the resource with the port included: ```:8080/unique.css```. Keep in mind using external resources with active content such as JavaScript is dangerous as it can interrupt the regular flow of execution.
+* ```resources```: This is an array of relative links to resources such as CSS stylesheets, images, or even JavaScript files. If you expect these resources to be on a non-standard port such as ``8080``, set the resource with the port included: ```:8080/unique.css```. Keep in mind using external resources with active content such as JavaScript is dangerous as it can interrupt the regular flow of execution.
 * ```callback```: If all of these resources are found to exist on the enumerated host then the ```callback``` function is called with a single argument of the device's IP address.
 
 By creating your own fingerprints you can build custom exploits that will be launched against internal devices once they are detected by sonar.js. Common exploits include things such as Cross-site Request Forgery (CSRF), Cross-site Scripting (XSS), etc. The idea being that you can use these vulnerabilities to do things such as modifying router DNS configurations, dumping files from an internal fileserver, and more.
