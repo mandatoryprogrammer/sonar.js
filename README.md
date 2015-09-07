@@ -6,7 +6,6 @@ Upon loading the sonar.js payload in a modern web browser the following will hap
 * sonar.js will use WebRTC to enumerate what internal IPs the user loading the payload has.
 * sonar.js then attempts to find live hosts on the internal network via WebSockets.
 * If a live host is found, sonar.js begins to attempt to fingerprint the host by linking to it via ```<img src="x">``` and ```<link rel="stylesheet" type="text/css" href="x">``` and hooking the ```onload``` event. If the expected resources load successfully it will trigger the pre-set JavaScript callback to start the user-supplied exploit.
-* If the user changes networks, sonar.js starts the process all over again on the newly joined network.
 
 ## Fingerprints
 sonar.js works off of a database of fingerprints. A fingerprint is simply a list of known resources on a device that can be linked to and detected via ```onload```. Examples of this include images, CSS stylesheets, and even external JavaScript.
