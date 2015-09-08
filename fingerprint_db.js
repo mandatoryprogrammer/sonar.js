@@ -128,5 +128,13 @@ var fingerprints = [
             // Insert exploit here
         },
     },
+    {
+        'name': "Cisco DPC3848V",
+        'created': "Tue, 08 Sep 2015 00:02:50 GMT",
+        'resources': [["/cmn/img/pageBackground.jpg",1260,566],["/cmn/img/cisco_logo.png",93,59],"/cmn/css/webframe.css","/cmn/js/lib/jquery-1.9.1.js","/cmn/js/lib/jquery-migrate-1.2.1.js","/cmn/js/utilityFunctions.js","/i18n/i18nReader.php"],
+        'callback': function( ip ) {
+            // Insert exploit here
+        },
+    },
 
 ]
